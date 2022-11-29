@@ -4,7 +4,7 @@ import Tasks from './components/Tasks';
 
 function App() {
   return (
-    <div className="App">
+    <div className="App font-link">
       <Header />
       <Tasks />
     </div>
