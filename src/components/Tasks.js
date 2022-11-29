@@ -3,6 +3,8 @@ import React, { useEffect, useState } from "react";
 const Todo = () => {
     const [showForm, setShowForm] = useState(false);
     const [showNew, setShowNew] = useState(true);
+    const [isCompletedItem, setIsCompletedItem] = useState(true);
+    const [showCompletedList, setShowCompletedList] = useState(true);
     const [showDelete, setShowDelete] = useState(true);
     const [toggleSubmit, setToggleSubmit] = useState(true);
     const [isEditItem, setIsEditItem] = useState(null);
@@ -69,7 +71,23 @@ const Todo = () => {
             setInputDesc("");
             setShowForm(false);
         }
-    };    
+    };
+    
+    const handleCompleted = (id) => {
+        setShowList(false);
+        setShowDelete(false);
+        setShowNew(false);
+        setShowForm(true); 
+        setToggleSubmit(false);
+        let newCompletedItem = items.find((elem) => {
+            return elem.id === id;
+        });
+        setInputTitle(newCompletedItem.name);
+        setInputDesc(newCompletedItem.desc);
+ 
+        setIsCompletedItem(id);
+    };
+
 
     const handleDelete = (index) => {
         const updatedItems = items.filter((elem) => {
@@ -173,7 +191,9 @@ const Todo = () => {
                             <div className="row border rounded shadow p-3 mb-3 bg-dark text-light rounded  p-2" key={elem.id}>
                                 <div className="col-12 sm-col-6 d-flex justify-content-between align-items-center">
                                     <div className="text-start">
-                                        <h4 className="fs-4">{elem.name}</h4>
+                                        <input className="form-check-input d-inline-flex" type="checkbox" value="" id="flexCheckDefault" />
+                                        <label className="form-check-label" for="flexCheckDefault"></label>
+                                        <h4 className="d-inline fs-4">{elem.name}</h4>
                                         <p className="fs-6 fw-light">{elem.desc}</p>
                                     </div>
                                     <div>
@@ -192,6 +212,16 @@ const Todo = () => {
                             </div>                            
                         );
                     })}
+                </div>
+            ) : (
+                ""
+            )}
+            {showCompletedList ? (
+                <div>
+                    <div className="form-check">
+                        <input className="form-check-input" type="checkbox" value="" id="flexCheckDefault" />
+                        <label className="form-check-label" for="flexCheckDefault"></label>
+                    </div>
                 </div>
             ) : (
                 ""
