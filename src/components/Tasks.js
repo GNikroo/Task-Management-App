@@ -1,4 +1,4 @@
-import React, { useState } from "react";
+import React, { useEffect, useState } from "react";
  
 const Todo = () => {
     const [showForm, setShowForm] = useState(false);
@@ -18,6 +18,17 @@ const Todo = () => {
             status: false,
         },
     ]);
+
+    useEffect(() => {
+        const items = JSON.parse(localStorage.getItem('items'));
+        if (items) {
+         setItems(items);
+        }
+      }, []);
+
+    useEffect(() => {
+        localStorage.setItem('items', JSON.stringify(items));
+    }, [items]);    
     
     const handleInput = (e) => {
         setInputTitle(e.target.value);
@@ -41,7 +52,7 @@ const Todo = () => {
                     }
                     return elem;
                 })
-            ); 
+            );
             setInputTitle("");
             setInputDesc("");
             setToggleSubmit(true);
@@ -61,7 +72,6 @@ const Todo = () => {
     };    
 
     const handleDelete = (index) => {
-        console.log(index);
         const updatedItems = items.filter((elem) => {
             return index !== elem.id;
         });
@@ -86,7 +96,6 @@ const Todo = () => {
         setInputDesc(newEditItem.desc);
  
         setIsEditItem(id);
-        console.log(newEditItem);
     };
 
     const handleAdd = () => {
@@ -100,7 +109,7 @@ const Todo = () => {
             {showNew ? (
                 <div className="container">
                     <div className="col-12 text-end pb-2">
-                        <button className="btn btn-sm btn-primary" onClick={handleAdd}>
+                        <button className="btn btn-light btn-outline-dark btn-sm btn-primary" onClick={handleAdd}>
                             New
                         </button>
                     </div>
@@ -141,9 +150,9 @@ const Todo = () => {
                                     value={inputDesc}
                                 />
                                 {toggleSubmit ? (
-                                    <button className="btn btn-sm btn-primary my-2">Save</button>
+                                    <button className="btn btn-sm btn-dark btn-outline-light my-2">Save</button>
                                 ) : (
-                                    <button className="btn btn-sm btn-primary my-2">Update</button>
+                                    <button className="btn btn-sm btn-dark btn-outline-light my-2">Update</button>
                                 )}
                             </form>
                         </div>
@@ -161,18 +170,18 @@ const Todo = () => {
                     )}
                     {items.map((elem, index) => {
                         return (
-                            <div className="row border rounded shadow p-3 mb-3 bg-white rounded  p-2" key={elem.id}>
+                            <div className="row border rounded shadow p-3 mb-3 bg-dark text-light rounded  p-2" key={elem.id}>
                                 <div className="col-12 sm-col-6 d-flex justify-content-between align-items-center">
                                     <div className="text-start">
                                         <h4 className="fs-4">{elem.name}</h4>
                                         <p className="fs-6 fw-light">{elem.desc}</p>
                                     </div>
                                     <div>
-                                        <button className="btn btn-sm btn-primary mx-2" onClick={() => handleEdit(elem.id)}>
+                                        <button className="btn btn-sm btn-outline-light mx-2" onClick={() => handleEdit(elem.id)}>
                                             Edit
                                         </button>
                                         {showDelete ? (
-                                            <button className="btn btn-sm btn-danger mx-2" onClick={() => handleDelete(elem.id)}>
+                                            <button className="btn btn-sm btn-light mx-2" onClick={() => handleDelete(elem.id)}>
                                                 Delete
                                             </button>
                                         ) : (
