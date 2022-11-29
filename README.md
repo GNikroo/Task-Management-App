@@ -1,4 +1,9 @@
-# task-management-app
+# Task Management App
+Built using React and bootstrap.
 
-# Credit
-https://wpwebinfotech.com/blog/create-task-management-app-with-react/
+## Function
+* Create, edit, delete tasks
+* Saved to local storage
+
+### Credit
+[WPWeb](https://wpwebinfotech.com/blog/create-task-management-app-with-react/)
