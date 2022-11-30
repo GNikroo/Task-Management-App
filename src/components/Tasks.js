@@ -94,11 +94,13 @@ const Todo = () => {
             return index !== elem.id;
         });
         setDeleteMessage(true);
+        setTimeout(() => {
+            setDeleteMessage(false);
+        }, 2000);
  
         setTimeout(() => {
             setItems(updatedItems);
-            setDeleteMessage(false);
-        }, 2000);
+        }, 1000);
     };
 
     const handleEdit = (id) => {
