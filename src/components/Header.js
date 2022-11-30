@@ -1,4 +1,3 @@
-import React from 'react'
 import DropdownButton from './Dropdown'
 
 function Header() {
