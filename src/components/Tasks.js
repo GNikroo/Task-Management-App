@@ -1,15 +1,17 @@
 import React, { useEffect, useState } from "react";
+import Checkbox from "./Checkbox";
  
 const Todo = () => {
     const [showForm, setShowForm] = useState(false);
     const [showNew, setShowNew] = useState(true);
-    const [isCompletedItem, setIsCompletedItem] = useState(true);
-    const [showCompletedList, setShowCompletedList] = useState(true);
+    const [showCompletedList, setShowCompletedList] = useState(false);
     const [showDelete, setShowDelete] = useState(true);
     const [toggleSubmit, setToggleSubmit] = useState(true);
     const [isEditItem, setIsEditItem] = useState(null);
     const [showList, setShowList] = useState(true);
     const [deleteMessage, setDeleteMessage] = useState(false);
+    const [failMessage, setFailMessage] = useState(false);
+    const [successMessage, setSuccessMessage] = useState(false);
     const [inputTitle, setInputTitle] = useState("");
     const [inputDesc, setInputDesc] = useState("");
     const [items, setItems] = useState([
@@ -44,7 +46,7 @@ const Todo = () => {
         setShowNew(true);
         e.preventDefault();
         if (!inputTitle || !inputDesc) {
-            alert("Please complete the form!");
+            setFailMessage(true);
             showList(false);
         } else if (inputTitle && !toggleSubmit) {
             setItems(
@@ -60,34 +62,25 @@ const Todo = () => {
             setToggleSubmit(true);
             setShowForm(false);
             setShowDelete(true);
+            return (
+                <div className="alert alert-success" role="alert">Updated</div>
+            )
         } else {
             const allInputTitle = {
                 id: new Date().getTime().toString(),
                 name: inputTitle,
                 desc: inputDesc,
             };
+            setSuccessMessage(true);
+            setTimeout(() => {
+                setSuccessMessage(false);
+            }, 2000);
             setItems([allInputTitle, ...items]);
             setInputTitle("");
             setInputDesc("");
             setShowForm(false);
         }
     };
-    
-    const handleCompleted = (id) => {
-        setShowList(false);
-        setShowDelete(false);
-        setShowNew(false);
-        setShowForm(true); 
-        setToggleSubmit(false);
-        let newCompletedItem = items.find((elem) => {
-            return elem.id === id;
-        });
-        setInputTitle(newCompletedItem.name);
-        setInputDesc(newCompletedItem.desc);
- 
-        setIsCompletedItem(id);
-    };
-
 
     const handleDelete = (index) => {
         const updatedItems = items.filter((elem) => {
@@ -182,9 +175,19 @@ const Todo = () => {
                 ""
             )}        
             {showList ? (
-                <div className="container py-2 ">
+                <div className="container py-2">
+                    {failMessage ? (
+                        <div className="alert alert-warning" role="alert">Please complete the form to save your task</div>
+                    ) : (
+                        ""
+                    )}
+                    {successMessage ? (
+                        <div className="alert alert-success" role="alert">Task added</div>
+                    ) : (
+                        ""
+                    )}
                     {deleteMessage ? (
-                        <p className="alert alert-success" role="alert">Task Deleted</p>
+                        <p className="alert alert-danger" role="alert">Task deleted</p>
                     ) : (
                         ""
                     )}
@@ -192,8 +195,7 @@ const Todo = () => {
                         return (
                             <div className="row align-items-center border rounded shadow bg-dark text-light text-start mb-2" key={elem.id}>
                                 <div className="col-auto">
-                                    <input className="form-check-input ms-3 mt-0" type="checkbox" value="" id="flexCheckDefault" />
-                                    <label className="form-check-label" for="flexCheckDefault"></label>
+                                    <Checkbox />
                                 </div>
                                 <div className="col-7">
                                     <h4 className="fs-4">{elem.name}</h4>
@@ -218,13 +220,7 @@ const Todo = () => {
             ) : (
                 ""
             )}
-            {showCompletedList ? (
-                <div>
 
-                </div>
-            ) : (
-                ""
-            )}
         </div>
     );
 };
