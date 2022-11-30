@@ -182,32 +182,32 @@ const Todo = () => {
             {showList ? (
                 <div className="container py-2 ">
                     {deleteMessage ? (
-                        <p className="text-center text-danger">Task Deleted</p>
+                        <p className="alert alert-success" role="alert">Task Deleted</p>
                     ) : (
                         ""
                     )}
                     {items.map((elem, index) => {
                         return (
-                            <div className="row border rounded shadow p-3 mb-3 bg-dark text-light rounded  p-2" key={elem.id}>
-                                <div className="col-12 sm-col-6 d-flex justify-content-between align-items-center">
-                                    <div className="text-start">
-                                        <input className="form-check-input d-inline-flex" type="checkbox" value="" id="flexCheckDefault" />
-                                        <label className="form-check-label" for="flexCheckDefault"></label>
-                                        <h4 className="d-inline fs-4">{elem.name}</h4>
-                                        <p className="fs-6 fw-light">{elem.desc}</p>
-                                    </div>
-                                    <div>
-                                        <button className="btn btn-sm btn-outline-light mx-2" onClick={() => handleEdit(elem.id)}>
-                                            Edit
+                            <div className="row align-items-center border rounded shadow bg-dark text-light text-start mb-2" key={elem.id}>
+                                <div className="col-auto">
+                                    <input className="form-check-input ms-3 mt-0" type="checkbox" value="" id="flexCheckDefault" />
+                                    <label className="form-check-label" for="flexCheckDefault"></label>
+                                </div>
+                                <div className="col-7">
+                                    <h4 className="fs-4">{elem.name}</h4>
+                                    <p className="fs-6 fw-light">{elem.desc}</p>
+                                </div>
+                                <div className="col-2 col-lg-2 col-sm-3 ms-auto">
+                                    <button className="btn btn-sm btn-outline-light mx-2" onClick={() => handleEdit(elem.id)}>
+                                        Edit
+                                    </button>
+                                    {showDelete ? (
+                                        <button className="btn btn-sm btn-light mx-2" onClick={() => handleDelete(elem.id)}>
+                                            Delete
                                         </button>
-                                        {showDelete ? (
-                                            <button className="btn btn-sm btn-light mx-2" onClick={() => handleDelete(elem.id)}>
-                                                Delete
-                                            </button>
-                                        ) : (
-                                            ""
-                                        )}
-                                    </div>
+                                    ) : (
+                                        ""
+                                    )}
                                 </div>
                             </div>                            
                         );
@@ -218,10 +218,7 @@ const Todo = () => {
             )}
             {showCompletedList ? (
                 <div>
-                    <div className="form-check">
-                        <input className="form-check-input" type="checkbox" value="" id="flexCheckDefault" />
-                        <label className="form-check-label" for="flexCheckDefault"></label>
-                    </div>
+
                 </div>
             ) : (
                 ""
