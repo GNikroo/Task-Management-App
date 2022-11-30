@@ -6,4 +6,4 @@ Built using React and bootstrap.
 * Saved to local storage
 
 ### Credit
-[WPWeb](https://wpwebinfotech.com/blog/create-task-management-app-with-react/)
+[WPWeb](https://wpwebinfotech.com/blog/create-task-management-app-with-react/) Inspiration for initial set up.
