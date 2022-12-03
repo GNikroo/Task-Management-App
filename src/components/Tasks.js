@@ -4,7 +4,6 @@ import Checkbox from "./Checkbox";
 const Todo = () => {
     const [showForm, setShowForm] = useState(false);
     const [showNew, setShowNew] = useState(true);
-    const [showCompletedList, setShowCompletedList] = useState(false);
     const [showDelete, setShowDelete] = useState(true);
     const [toggleSubmit, setToggleSubmit] = useState(true);
     const [isEditItem, setIsEditItem] = useState(null);
@@ -198,8 +197,8 @@ const Todo = () => {
                                     <Checkbox />
                                 </div>
                                 <div className="col-7">
-                                    <h4 className="fs-4">{elem.name}</h4>
-                                    <p className="fs-6 fw-light">{elem.desc}</p>
+                                    <h4 className="fs-4 mt-1">{elem.name}</h4>
+                                    <p className="fs-6 mb-1 fw-light">{elem.desc}</p>
                                 </div>
                                 <div className="col-2 col-lg-2 col-sm-3 ms-auto">
                                     <button className="btn btn-sm btn-outline-light mx-2" onClick={() => handleEdit(elem.id)}>
@@ -220,7 +219,6 @@ const Todo = () => {
             ) : (
                 ""
             )}
-
         </div>
     );
 };
